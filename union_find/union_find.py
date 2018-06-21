@@ -12,7 +12,7 @@ class UF:
     def union(self, p: int, q: int) -> None:
         for i in range(len(self.array)):
             if self.array[i] == p:
-                self.array[i] = q
+                self.array[i] = self.array[q]
 
 
 def main():
