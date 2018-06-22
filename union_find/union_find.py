@@ -7,11 +7,12 @@ class UF:
         self.array = list(range(n))
 
     def connected(self, p: int, q: int) -> bool:
+        # quick find algorithm
         return self.array[p] == self.array[q]
 
     def union(self, p: int, q: int) -> None:
         for i in range(len(self.array)):
-            if self.array[i] == p:
+            if self.array[i] == self.array[p]:
                 self.array[i] = self.array[q]
 
 
