@@ -30,22 +30,30 @@ class QuickUnion(UnionFindBase):
 
     def root(self, i: int):
         """All algorithm complexity is here"""
+        d = 0
         while i != self.array[i]:
+            self.array[i] = self.array[self.array[i]]
             i = self.array[i]
-        return i
+            d += 1
+        return i, d
 
     def union(self, p: int, q: int) -> None:
-        i = self.root(p)
-        j = self.root(q)
-        self.array[i] = j   # or self.array[j] - must be the same because for root element they should be equal
+        i, i_d = self.root(p)
+        j, j_d = self.root(q)
+        if i_d > j_d:
+            self.array[j] = i
+        else:
+            self.array[i] = j   # or self.array[j] - must be the same because for root element they should be equal
 
     def connected(self, p: int, q: int) -> bool:
-        return self.root(p) == self.root(q)
+        i, _ = self.root(p)
+        j, _ = self.root(q)
+        return i == j
 
 
 def main():
     n = int(input())
-    uf = QuickFind(n)
+    uf = QuickUnion(n)
     for line in stdin:
         p, q = [int(s) for s in line.split()]
         if not uf.connected(p, q):
